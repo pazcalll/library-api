@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 
-class AuthorRequest extends FormRequest
+class BookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +21,11 @@ class AuthorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $requiredOnStore = Route::is(['authors.store']) ? 'required' : 'sometimes';
-
         return [
-            'name' => [$requiredOnStore, 'max:100'],
-            'bio' => [$requiredOnStore, 'max:255'],
-            'birth_date' => [$requiredOnStore, 'date_format:Y-m-d'],
+            'author_id' => ['required', 'exists:authors,id'],
+            'title' => ['required', 'max:100'],
+            'description' => ['required', 'max:255'],
+            'publish_date' => ['required', 'date_format:Y-m-d'],
         ];
     }
 }

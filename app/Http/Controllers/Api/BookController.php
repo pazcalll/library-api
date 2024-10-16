@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookRequest;
+use App\Http\Resources\ApiJsonResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -14,14 +16,24 @@ class BookController extends Controller
     public function index()
     {
         //
+        $books = Book::query()->paginate();
+
+        return new ApiJsonResource($books);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
         //
+        $book = Book::create($request->validated());
+
+        return new ApiJsonResource(
+            data: $book,
+            message: 'Book created successfully',
+            status: 201,
+        );
     }
 
     /**
@@ -30,14 +42,19 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+        return new ApiJsonResource($book);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(BookRequest $request, Book $book)
     {
         //
+        $book->update($request->validated());
+        $book->refresh();
+
+        return new ApiJsonResource($book, 'Book updated successfully');
     }
 
     /**
@@ -46,5 +63,7 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         //
+        $book->delete();
+        return new ApiJsonResource(null, 'Book deleted successfully');
     }
 }

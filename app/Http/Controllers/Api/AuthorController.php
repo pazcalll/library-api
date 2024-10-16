@@ -32,6 +32,7 @@ class AuthorController extends Controller
 
         return new ApiJsonResource(
             data: $author,
+            message: 'Author created successfully',
             status: 201,
         );
     }
@@ -65,9 +66,6 @@ class AuthorController extends Controller
         //
         $author->delete();
 
-        return new ApiJsonResource(
-            data: $author,
-            message: 'Author deleted successfully',
-        );
+        return new ApiJsonResource($author, 'Author deleted successfully');
     }
 }
