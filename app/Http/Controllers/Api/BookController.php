@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\ApiJsonResource;
+use App\Http\Resources\ApiPaginatedResponse;
 use App\Models\Book;
-use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -18,7 +18,7 @@ class BookController extends Controller
         //
         $books = Book::query()->paginate();
 
-        return new ApiJsonResource($books);
+        return new ApiPaginatedResponse($books);
     }
 
     /**

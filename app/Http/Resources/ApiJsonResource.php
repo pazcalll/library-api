@@ -21,8 +21,6 @@ class ApiJsonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        self::withoutWrapping();
-
         return [
             'message' => $this->message ?? 'Request completed successfully',
             'data' => $this->data,

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class BookRequest extends FormRequest
 {
@@ -21,11 +22,16 @@ class BookRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'author_id' => ['required', 'exists:authors,id'],
-            'title' => ['required', 'max:100'],
-            'description' => ['required', 'max:255'],
-            'publish_date' => ['required', 'date_format:Y-m-d'],
+        $requiredOnStore = Route::is(['books.store']) ? 'required' : 'sometimes';
+
+        $validations = [
+            'title' => [$requiredOnStore, 'max:100'],
+            'description' => [$requiredOnStore, 'max:255'],
+            'publish_date' => [$requiredOnStore, 'date_format:Y-m-d'],
         ];
+
+        if (Route::is(['books.store'])) $validations['author_id'] = ['required', 'exists:authors,id'];
+
+        return $validations;
     }
 }
