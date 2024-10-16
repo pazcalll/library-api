@@ -64,6 +64,6 @@ class BookController extends Controller
     {
         //
         $book->delete();
-        return new ApiJsonResource(null, 'Book deleted successfully');
+        return new ApiJsonResource($book, 'Book deleted successfully');
     }
 }
