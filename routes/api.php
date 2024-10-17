@@ -9,5 +9,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
+Route::get('authors/{author}/books', [AuthorController::class, 'books']);
 Route::apiResource('authors', AuthorController::class);
 Route::apiResource('books', BookController::class);

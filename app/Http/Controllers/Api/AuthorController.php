@@ -68,4 +68,9 @@ class AuthorController extends Controller
 
         return new ApiJsonResource($author, 'Author deleted successfully');
     }
+
+    public function books(Author $author)
+    {
+        return new ApiJsonResource($author->books);
+    }
 }
