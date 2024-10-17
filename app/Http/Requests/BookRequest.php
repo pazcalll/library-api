@@ -25,12 +25,11 @@ class BookRequest extends FormRequest
         $requiredOnStore = Route::is(['books.store']) ? 'required' : 'sometimes';
 
         $validations = [
+            'author_id' => [$requiredOnStore, 'exists:authors,id'],
             'title' => [$requiredOnStore, 'max:100'],
             'description' => [$requiredOnStore, 'max:255'],
             'publish_date' => [$requiredOnStore, 'date_format:Y-m-d'],
         ];
-
-        if (Route::is(['books.store'])) $validations['author_id'] = ['required', 'exists:authors,id'];
 
         return $validations;
     }

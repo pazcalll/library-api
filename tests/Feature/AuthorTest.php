@@ -16,7 +16,7 @@ class AuthorTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_index_structure(): void
+    public function test_index(): void
     {
         $response = $this->get('/api/authors');
 
@@ -38,7 +38,7 @@ class AuthorTest extends TestCase
         ]);
     }
 
-    public function test_show_structure(): void
+    public function test_show(): void
     {
         $response = $this->get('/api/authors/1');
 
@@ -60,7 +60,7 @@ class AuthorTest extends TestCase
         ]);
     }
 
-    public function test_create_author(): void
+    public function test_store(): void
     {
         $response = $this->postJson('/api/authors', [
             'name' => 'Test Author',
@@ -76,7 +76,7 @@ class AuthorTest extends TestCase
         ]);
     }
 
-    public function test_update_patch_author(): void
+    public function test_update(): void
     {
         $response = $this->putJson('/api/authors/1', [
             'name' => 'Updated Author',
@@ -92,19 +92,7 @@ class AuthorTest extends TestCase
         ]);
     }
 
-    public function test_update_put_author(): void
-    {
-        $response = $this->putJson('/api/authors/1', [
-            'name' => 'Updated Author',
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJsonFragment([
-            'name' => 'Updated Author',
-        ]);
-    }
-
-    public function test_delete_author(): void
+    public function test_delete(): void
     {
         $response = $this->delete('/api/authors/1');
 
