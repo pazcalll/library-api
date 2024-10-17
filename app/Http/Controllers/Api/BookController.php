@@ -42,7 +42,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
-        return new ApiJsonResource($book);
+        return new ApiJsonResource($book->load('author'));
     }
 
     /**

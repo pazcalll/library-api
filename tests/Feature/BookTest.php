@@ -43,6 +43,27 @@ class BookTest extends TestCase
         $response = $this->get('/api/books/1');
 
         $response->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'message',
+            'data' => [
+                'id',
+                'title',
+                'author_id',
+                'description',
+                'publish_date',
+                'created_at',
+                'updated_at',
+                'author' => [
+                    'id',
+                    'name',
+                    'birth_date',
+                    'bio',
+                    'created_at',
+                    'updated_at',
+                ],
+            ],
+        ]);
     }
 
     public function test_store(): void
