@@ -17,7 +17,7 @@ class AuthorController extends Controller
     public function index()
     {
         //
-        $authors = Author::query()->paginate();
+        $authors = Author::query()->paginate(request('length'));
 
         return new ApiPaginatedResponse($authors);
     }
@@ -71,6 +71,8 @@ class AuthorController extends Controller
 
     public function books(Author $author)
     {
-        return new ApiJsonResource($author->books);
+        $books = $author->books()->paginate(request('length'));
+
+        return new ApiPaginatedResponse($books);
     }
 }

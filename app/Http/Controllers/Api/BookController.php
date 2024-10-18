@@ -16,7 +16,7 @@ class BookController extends Controller
     public function index()
     {
         //
-        $books = Book::query()->paginate();
+        $books = Book::query()->paginate(request('length'));
 
         return new ApiPaginatedResponse($books);
     }

@@ -38,6 +38,24 @@ class AuthorTest extends TestCase
         ]);
     }
 
+    public function test_index_change_length(): void {
+        $response = $this->get('/api/authors?length=10');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'per_page' => 10,
+        ]);
+    }
+
+    public function test_index_paginate(): void {
+        $response = $this->get('/api/authors?page=2');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'current_page' => 2,
+        ]);
+    }
+
     public function test_show(): void
     {
         $response = $this->get('/api/authors/1');
@@ -108,7 +126,7 @@ class AuthorTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
-            'message',
+            'current_page',
             'data' => [
                 '*' => [
                     'id',
@@ -120,6 +138,8 @@ class AuthorTest extends TestCase
                     'updated_at',
                 ],
             ],
+            'per_page',
+            'total',
         ]);
     }
 }

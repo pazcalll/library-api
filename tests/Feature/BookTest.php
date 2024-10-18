@@ -38,6 +38,24 @@ class BookTest extends TestCase
         ]);
     }
 
+    public function test_index_change_length(): void {
+        $response = $this->get('/api/books?length=10');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'per_page' => 10,
+        ]);
+    }
+
+    public function test_index_paginate(): void {
+        $response = $this->get('/api/books?page=2');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'current_page' => 2,
+        ]);
+    }
+
     public function test_show(): void
     {
         $response = $this->get('/api/books/1');
