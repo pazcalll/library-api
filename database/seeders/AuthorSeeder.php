@@ -16,7 +16,7 @@ class AuthorSeeder extends Seeder
     {
         //
         Author::factory()
-            ->count(10)
+            ->count(250)
             ->create();
     }
 }

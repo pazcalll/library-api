@@ -19,8 +19,7 @@ class BookFactory extends Factory
         return [
             'title' => fake()->sentence,
             'description' => fake()->paragraph,
-            'publish_date' => fake()->date(max: 'one year ago'),
-            'author_id' => fake()->numberBetween(1, 10),
+            'publish_date' => fake()->date(),
         ];
     }
 }
