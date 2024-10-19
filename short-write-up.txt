@@ -1,0 +1,9 @@
+In this repository, I use SRP to design the backend code.
+By implementing SRP (Single Responsibility Principle) I can separate the process logics with ease.
+I used to imagine if all process written in controller will make it fat, so I separate the request validation and the response.
+Sooner or later that should make the whole process become spaghetti code if not separated wisely.
+I plan to put the query scopes inside the model, but since the project is too small and does not require the approach, then I leave it as it is.
+I also plan to make service folder to contain the services, but again, the project is too small for that approach.
+For performance tuning, I implementing pagination for some endpoints.
+The approach was chosen because I made a seeder for the requested tables and they are having thousands of rows.
+I think, it is a pretty common approach to implement before the database becomes heavier and also to prevent performance issue where the client requested multiple rows of data.
