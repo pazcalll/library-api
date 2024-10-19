@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class ApiPaginatedResponse extends JsonResource
+class ApiPaginatedResource extends JsonResource
 {
     public function __construct(
         private LengthAwarePaginator $data,

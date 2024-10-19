@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ApiJsonResource extends JsonResource
 {
     public function __construct(
-        private mixed $data,
+        private mixed $data = null,
         private ?string $message = null,
         private int $status = 200,
     ) {}

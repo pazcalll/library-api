@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthorRequest;
 use App\Http\Resources\ApiJsonResource;
-use App\Http\Resources\ApiPaginatedResponse;
+use App\Http\Resources\ApiPaginatedResource;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class AuthorController extends Controller
         //
         $authors = Author::query()->paginate(request('length'));
 
-        return new ApiPaginatedResponse($authors);
+        return new ApiPaginatedResource($authors);
     }
 
     /**
@@ -73,6 +73,6 @@ class AuthorController extends Controller
     {
         $books = $author->books()->paginate(request('length'));
 
-        return new ApiPaginatedResponse($books);
+        return new ApiPaginatedResource($books);
     }
 }
