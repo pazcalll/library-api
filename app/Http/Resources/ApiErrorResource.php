@@ -5,12 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Pagination\LengthAwarePaginator;
 
-class ApiPaginatedResource extends JsonResource
+class ApiErrorResource extends JsonResource
 {
     public function __construct(
-        private LengthAwarePaginator $data,
+        private null|array|object $errors = null,
+        private ?string $message = null,
+        private int $status = 400,
     ) {}
 
     /**
@@ -22,15 +23,13 @@ class ApiPaginatedResource extends JsonResource
     {
         self::withoutWrapping();
         return [
-            'data' => $this->data->items(),
-            'current_page' => $this->data->currentPage(),
-            'per_page' => $this->data->perPage(),
-            'total' => $this->data->total(),
+            'message' => $this->message ?? 'Request failed',
+            'errors' => $this->errors,
         ];
     }
 
     public function withResponse(Request $request, JsonResponse $response)
     {
-        $response->setStatusCode(200);
+        $response->setStatusCode($this->status);
     }
 }

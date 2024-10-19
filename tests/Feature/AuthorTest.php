@@ -58,8 +58,8 @@ class AuthorTest extends TestCase
 
     public function test_show(): void
     {
+        // when data found
         $response = $this->get('/api/authors/1');
-
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'message',
@@ -75,6 +75,14 @@ class AuthorTest extends TestCase
 
         $response->assertJsonFragment([
             'id' => 1,
+        ]);
+
+        // when data not found
+        $response = $this->get('/api/authors/99999999999');
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'message',
+            'errors',
         ]);
     }
 
@@ -122,8 +130,8 @@ class AuthorTest extends TestCase
 
     public function test_books(): void
     {
+        // when data found
         $response = $this->get('/api/authors/1/books');
-
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'current_page',
@@ -140,6 +148,14 @@ class AuthorTest extends TestCase
             ],
             'per_page',
             'total',
+        ]);
+
+        // when data not found
+        $response = $this->get('/api/authors/99999999999/books');
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'message',
+            'errors',
         ]);
     }
 }

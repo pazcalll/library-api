@@ -58,10 +58,9 @@ class BookTest extends TestCase
 
     public function test_show(): void
     {
+        // when data found
         $response = $this->get('/api/books/1');
-
         $response->assertStatus(200);
-
         $response->assertJsonStructure([
             'message',
             'data' => [
@@ -81,6 +80,17 @@ class BookTest extends TestCase
                     'updated_at',
                 ],
             ],
+        ]);
+        $response->assertJsonFragment([
+            'id' => 1,
+        ]);
+
+        // when data not found
+        $response = $this->get('/api/authors/99999999999');
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'message',
+            'errors',
         ]);
     }
 
