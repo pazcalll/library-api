@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
         $exceptions->render(function (NotFoundHttpException $e) {
-            return new ApiErrorResource(message: $e->getMessage(), status: 404);
+            return new ApiErrorResource(
+                config('app.env') != 'production' ? $e->getTrace() : null,
+                $e->getMessage(),
+                404
+            );
         });
     })->create();
