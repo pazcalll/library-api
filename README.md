@@ -21,4 +21,6 @@ php artisan install:api
 
 php artisan migrate:fresh --seed
 ```
-- finally, execute ```php artisan serve``` to run the project server. all api routes in the project are having ```/api``` prefix after the base url. usually, the project will run at ```http://127.0.0.1:8000```
+- execute ```php artisan serve``` to run the project server. all api routes in the project are having ```/api``` prefix after the base url. usually, the project will run at ```http://127.0.0.1:8000```
+
+- execute ```php artisan test``` to run the project tests after all the mentioned steps were done
